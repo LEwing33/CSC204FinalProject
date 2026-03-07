@@ -1,0 +1,6 @@
+Shopping Window - Dynamically display the apparel object
+Apparel Object - A base to make each apparel item
+Add to Cart - Added to Apparel object to send to cart
+Cart Window - similar to shopping window but only added when an item is added to cart
+Payment Submission - in cart to submit payment
+Cost Tracker - keep track of cart cost
