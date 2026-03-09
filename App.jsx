@@ -10,7 +10,16 @@ function App() {
 
   return (
     <div className="App">
+      <nav>
+        <ul>
+          <li><a href="/index.html">Home</a></li>
+          <li><a href="/cart.html">Cart</a></li>
+        </ul>
+        
+      </nav>
+
       <h1>My Digital Shop</h1>
+
       <div className="inventory-grid" style={{ display: 'flex', flexWrap: 'wrap', gap: '20px' }}>
         {apparelData.map((item) => (
           <ApparelList key={item.id} apparelNo={item} />
