@@ -1,36 +1,58 @@
 import React from 'react';
+import ToCart from './toCart';
+import RemoveFromCart from './/removeFromCart';
+import { supabase } from '../supabaseClient';
 
-const ApparelList = ({ apparelNo }) => {
-    const [size, setSize] = React.useState("");
-  return (
-    <div className="ApparelCard" style={{ border: '1px solid #ddd', padding: '15px', width: '200px' }}>
-      <img 
-        src={apparelNo.imagePath} 
-        alt={apparelNo.itemName} 
-        style={{ width: '100%', height: '150px', objectFit: 'cover' }} 
-      />
-      <h3>{apparelNo.itemName}</h3>
-      <p>Category: {apparelNo.category}</p>
-      <p>Cost: ${apparelNo.cost.toFixed(2)}</p>
-      <p>Color: {apparelNo.color}</p>
-      <p>Size: 
-        <select 
-            onChange={(e) => {
-                const selectedSize = e.target.value;
-                setSize(selectedSize);
-            }}>
-            <option value="">Size</option>
-            {apparelNo.size.map((sizeOption, index) => (
-                <option key={index} value={sizeOption}>
-                    {sizeOption}
-                </option>
-            ))}
-        </select>
-      </p>
-      <p>Brand: {apparelNo.brand}</p>
-      <p>Status: {apparelNo.status}</p>
-    </div>
-  );
+const ApparelList = ({ apparelNo, savedSize, dbId, onRemove }) => {
+    const [size, setSize] = React.useState(savedSize || "");
+
+    return (
+      <div className="ApparelCard">
+        <img 
+          src={apparelNo.imagePath} 
+          alt={apparelNo.itemName} 
+        />
+        <h3>{apparelNo.itemName}</h3>
+        <p>Category: {apparelNo.category}</p>
+        <p>Cost: ${apparelNo.cost.toFixed(2)}</p>
+        <p>Color: {apparelNo.color}</p>
+
+        {/* If savedSize exists, show text. Otherwise, show the dropdown. */}
+        {savedSize ? (
+           <p><strong>Selected Size: {savedSize}</strong></p>
+        ) : (
+          <p>Size: 
+            <select value={size} onChange={(e) => setSize(e.target.value)}>
+              <option value="">Size</option>
+              {apparelNo.size.map((sizeOption, index) => (
+                <option key={index} value={sizeOption}>{sizeOption}</option>
+              ))}
+            </select>
+          </p>
+        )}
+
+        <p>Brand: {apparelNo.brand}</p>
+        <p>Status: {apparelNo.status}</p>
+
+        {/* Show Add to Cart ONLY if there is no savedSize (Home Page) */}
+        {!savedSize && (
+          <p>
+            <em>
+              <ToCart apparelNo={apparelNo} selectedSize={size}/>
+            </em>
+          </p>
+        )}
+
+        {/* Use the dbId for deletion and onRemove for refreshing */}
+        {savedSize && (
+          <p>
+            <em>
+              <RemoveFromCart itemId={dbId} onRemove={onRemove} />
+            </em>
+          </p>
+        )}
+      </div>
+    );
 };
 
 export default ApparelList;
