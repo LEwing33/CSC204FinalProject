@@ -1,0 +1,57 @@
+[
+  {
+    "id": 1,
+    "itemName": "Classic White Tee",
+    "category": "Tops",
+    "cost": 20,
+    "color": "White",
+    "size": ["S","M", "L"],
+    "brand": "Everlane",
+    "imagePath": "./images/White-T.png",
+    "status": "In Stock"
+  },
+  {
+    "id": 2,
+    "itemName": "Dark Wash Denim",
+    "category": "Bottoms",
+    "cost": 20,
+    "color": "Indigo",
+    "size": ["S","M", "L"],
+    "brand": "Levi's",
+    "imagePath": "./images/Denim.png",
+    "status": "In Stock"
+  },
+  {
+    "id": 3,
+    "itemName": "Waterproof Parka",
+    "category": "Outerwear",
+    "cost": 20,
+    "color": "Olive",
+    "size": ["S","M", "L"],
+    "brand": "Patagonia",
+    "imagePath": "./images/Parka.png",
+    "status": "In Stock"
+  },
+  {
+    "id": 4,
+    "itemName": "Leather Boots",
+    "category": "Footwear",
+    "cost": 20,
+    "color": "Black",
+    "size": ["S","M", "L"],
+    "brand": "Dr. Martens",
+    "imagePath": "./images/Leather-Boots.png",
+    "status": "In Stock"
+  },
+  {
+    "id": 5,
+    "itemName": "Knit Wool Sweater",
+    "category": "Tops",
+    "cost": 20,
+    "color": "Orange",
+    "size": ["S","M", "L"],
+    "brand": "J.Crew",
+    "imagePath": "./images/Wool-Sweater.png",
+    "status": "In Stock"
+  }
+]
