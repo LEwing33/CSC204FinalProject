@@ -36,20 +36,12 @@ const ApparelList = ({ apparelNo, savedSize, dbId, onRemove }) => {
 
         {/* Show Add to Cart ONLY if there is no savedSize (Home Page) */}
         {!savedSize && (
-          <p>
-            <em>
               <ToCart apparelNo={apparelNo} selectedSize={size}/>
-            </em>
-          </p>
         )}
 
         {/* Use the dbId for deletion and onRemove for refreshing */}
         {savedSize && (
-          <p>
-            <em>
               <RemoveFromCart itemId={dbId} onRemove={onRemove} />
-            </em>
-          </p>
         )}
       </div>
     );

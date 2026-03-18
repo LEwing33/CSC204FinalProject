@@ -1,3 +1,4 @@
+import React from 'react';
 import { useState, useEffect } from 'react';
 import { supabase } from './supabaseClient'; 
 import ApparelList from './components/apparelObject';
@@ -24,6 +25,7 @@ function Cart() {
         <ul>
           <li><a href="/index.html">Home</a></li>
           <li><a href="/cart.html">Cart</a></li>
+          <li><a href="/checkout.html">Checkout</a></li>
         </ul>
       </nav>
 

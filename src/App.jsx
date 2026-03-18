@@ -1,5 +1,8 @@
+import React from 'react';
 import { useState } from 'react'
 import './App.css'
+import './Cart.jsx'
+import './Checkout.jsx'
 import ApparelList from './components/apparelObject'
 // Import the JSON directly
 import apparelDataRaw from './assets/clothing.json'; 
@@ -14,6 +17,7 @@ function App() {
         <ul>
           <li><a href="/index.html">Home</a></li>
           <li><a href="/cart.html">Cart</a></li>
+          <li><a href="/checkout.html">Checkout</a></li>
         </ul>
         
       </nav>
