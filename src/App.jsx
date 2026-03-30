@@ -59,7 +59,7 @@ function App() {
                 imagePath: item.image_path,// correct
                 size_chart: item.size_chart || []
               }}
-              isLoggedIn={!!user} // Pass login state down so ToCart can gate itself
+              isLoggedIn={!!user}
             />
           ))}
         </div>
