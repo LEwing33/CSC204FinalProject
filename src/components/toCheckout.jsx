@@ -13,7 +13,7 @@ const ToCheckout = ({ onCheckout, cartItems, totalAmount }) => {
             return;
         }
 
-        // 1. Format the cart items for the email body
+        // Format the cart items for the emai
         const orderSummary = cartItems.map(item => 
             `- ${item.item_name} (${item.selected_size}): $${item.cost}`
         ).join('\n');
@@ -26,8 +26,7 @@ const ToCheckout = ({ onCheckout, cartItems, totalAmount }) => {
         };
 
         try {
-            // 2. Send the Email
-            // Replace these with your actual IDs from the EmailJS Dashboard
+            // Send the Email
             await emailjs.send(
                 'service_o13isfb', 
                 'template_qfi9b7t', 
@@ -35,7 +34,7 @@ const ToCheckout = ({ onCheckout, cartItems, totalAmount }) => {
                 '5tnKGgihisxUkvhQA'
             );
 
-            // 3. Clear the cart in Supabase after successful email
+            // Clear the cart
             const { error: deleteError } = await supabase
                 .schema('store')
                 .from('cart')
@@ -57,7 +56,6 @@ const ToCheckout = ({ onCheckout, cartItems, totalAmount }) => {
         <button 
             className="CheckoutButton" 
             onClick={handleSendOrder}
-            style={{ padding: '10px 20px', backgroundColor: '#28a745', color: 'white', border: 'none', borderRadius: '5px', cursor: 'pointer' }}
         >
             Complete Purchase & Send Email
         </button>
