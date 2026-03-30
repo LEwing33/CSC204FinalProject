@@ -37,7 +37,7 @@ const Login = ({ onAuthChange }) => {
             return;
         }
 
-        // Convert username to a fake email format for Supabase
+        // Convert username to a fake email format
         const internalEmail = `${username.trim()}@myshop.local`;
 
         if (isSignUp) {
@@ -62,7 +62,7 @@ const Login = ({ onAuthChange }) => {
     };
 
     if (user) {
-        // Display just the username part of the internal email
+        // Display just the username
         const displayName = user.email.split('@')[0];
         return (
             <div className="auth-bar">
@@ -96,8 +96,8 @@ const Login = ({ onAuthChange }) => {
                 {isSignUp ? 'Already have a username? Sign In' : 'Need a username? Sign Up'}
             </button>
 
-            {error && <p style={{ color: 'red', fontSize: '12px' }}>{error}</p>}
-            {message && <p style={{ color: 'green', fontSize: '12px' }}>{message}</p>}
+            {error && <p>{error}</p>}
+            {message && <p>{message}</p>}
         </div>
     );
 };
