@@ -42,7 +42,7 @@ const ApparelList = ({ apparelNo, savedSize, dbId, onRemove, isLoggedIn }) => {
             {!savedSize && (
                 isLoggedIn
                     ? <ToCart apparelNo={apparelNo} selectedSize={size} />
-                    : <p style={{ color: '#888', fontSize: '0.9em' }}>Sign in to add to cart</p>
+                    : <p>Sign in to add to cart</p>
             )}
 
             {savedSize && (
