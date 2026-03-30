@@ -1,14 +1,14 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { supabase } from './supabaseClient'; 
+import { supabase } from './supabaseClient';
 import ApparelList from './components/apparelObject';
-import RemoveFromCart from './components/removeFromCart';
+import Login from './components/Login';
 
 function Cart() {
   const [cartItems, setCartItems] = useState([]);
 
   const fetchCart = async () => {
-    const { data, error } = await supabase.from('cart').select('*');
+    const { data, error } = await supabase.schema('store').from('cart').select('*');
     if (error) console.error(error);
     else setCartItems(data || []);
   };
@@ -27,6 +27,7 @@ function Cart() {
           <li><a href="/cart.html">Cart</a></li>
           <li><a href="/checkout.html">Checkout</a></li>
         </ul>
+        <Login />
       </nav>
 
       <h1>My Cloud Cart</h1>
@@ -34,9 +35,9 @@ function Cart() {
       <div className="inventory-grid">
         {cartItems.map((item) => (
           <div key={item.id}>
-            <ApparelList 
+            <ApparelList
               apparelNo={{
-                id: item.item_id,
+                item_id: item.item_id,
                 itemName: item.item_name,
                 cost: item.cost,
                 imagePath: item.image_path,
@@ -44,11 +45,11 @@ function Cart() {
                 color: item.color || "N/A",
                 brand: item.brand || "N/A",
                 status: item.status || "In Stock",
-                size: [] // Empty array so .map doesn't crash
-              }} 
-              savedSize={item.selected_size} 
-              dbId={item.id} // This is the primary key from Supabase
-              onRemove={fetchCart} // Pass the refresh function
+                size_chart: []
+              }}
+              savedSize={item.selected_size}
+              dbId={item.id}
+              onRemove={fetchCart}
             />
           </div>
         ))}

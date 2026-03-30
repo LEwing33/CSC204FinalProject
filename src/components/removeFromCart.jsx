@@ -4,6 +4,7 @@ import { supabase } from '../supabaseClient';
 const RemoveFromCart = ({ itemId, onRemove }) => {
     const remove = async () => {
         const { error } = await supabase
+            .schema('store')
             .from('cart')
             .delete()
             .eq('id', itemId); // Deletes the row where the DB id matches

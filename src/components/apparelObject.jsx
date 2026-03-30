@@ -1,49 +1,54 @@
 import React from 'react';
 import ToCart from './toCart';
-import RemoveFromCart from './/removeFromCart';
-import { supabase } from '../supabaseClient';
+import RemoveFromCart from './removeFromCart';
 
-const ApparelList = ({ apparelNo, savedSize, dbId, onRemove }) => {
+const ApparelList = ({ apparelNo, savedSize, dbId, onRemove, isLoggedIn }) => {
     const [size, setSize] = React.useState(savedSize || "");
 
+    const displayCost = typeof apparelNo.cost === 'number'
+        ? apparelNo.cost.toFixed(2)
+        : 'N/A';
+
+    const sizeOptions = apparelNo.size_chart || apparelNo.size || [];
+
     return (
-      <div className="ApparelCard">
-        <img 
-          src={apparelNo.imagePath} 
-          alt={apparelNo.itemName} 
-        />
-        <h3>{apparelNo.itemName}</h3>
-        <p>Category: {apparelNo.category}</p>
-        <p>Cost: ${apparelNo.cost.toFixed(2)}</p>
-        <p>Color: {apparelNo.color}</p>
+        <div className="ApparelCard">
+            <img
+                src={apparelNo.imagePath}
+                alt={apparelNo.itemName}
+            />
+            <h3>{apparelNo.itemName}</h3>
+            <p>Category: {apparelNo.category}</p>
+            <p>Cost: ${displayCost}</p>
+            <p>Color: {apparelNo.color}</p>
 
-        {/* If savedSize exists, show text. Otherwise, show the dropdown. */}
-        {savedSize ? (
-           <p><strong>Selected Size: {savedSize}</strong></p>
-        ) : (
-          <p>Size: 
-            <select value={size} onChange={(e) => setSize(e.target.value)}>
-              <option value="">Size</option>
-              {apparelNo.size.map((sizeOption, index) => (
-                <option key={index} value={sizeOption}>{sizeOption}</option>
-              ))}
-            </select>
-          </p>
-        )}
+            {savedSize ? (
+                <p><strong>Selected Size: {savedSize}</strong></p>
+            ) : (
+                <p>Size:
+                    <select value={size} onChange={(e) => setSize(e.target.value)}>
+                        <option value="">Select a size</option>
+                        {sizeOptions.map((sizeOption, index) => (
+                            <option key={index} value={sizeOption}>{sizeOption}</option>
+                        ))}
+                    </select>
+                </p>
+            )}
 
-        <p>Brand: {apparelNo.brand}</p>
-        <p>Status: {apparelNo.status}</p>
+            <p>Brand: {apparelNo.brand}</p>
+            <p>Status: {apparelNo.status}</p>
 
-        {/* Show Add to Cart ONLY if there is no savedSize (Home Page) */}
-        {!savedSize && (
-              <ToCart apparelNo={apparelNo} selectedSize={size}/>
-        )}
+            {/* Only show Add to Cart on home page AND when logged in */}
+            {!savedSize && (
+                isLoggedIn
+                    ? <ToCart apparelNo={apparelNo} selectedSize={size} />
+                    : <p style={{ color: '#888', fontSize: '0.9em' }}>Sign in to add to cart</p>
+            )}
 
-        {/* Use the dbId for deletion and onRemove for refreshing */}
-        {savedSize && (
-              <RemoveFromCart itemId={dbId} onRemove={onRemove} />
-        )}
-      </div>
+            {savedSize && (
+                <RemoveFromCart itemId={dbId} onRemove={onRemove} />
+            )}
+        </div>
     );
 };
 

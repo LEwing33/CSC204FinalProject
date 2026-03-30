@@ -1,24 +1,24 @@
 import React from "react";
-import { useState, useEffect }  from 'react';
+import { useState, useEffect } from 'react';
 import ToCheckout from "./components/toCheckout.jsx";
+import Login from "./components/Login.jsx";
 import { supabase } from "./supabaseClient";
 
-
-function Checkout(){
-    
+function Checkout() {
     const [cartItems, setCartItems] = useState([]);
 
     const fetchCart = async () => {
         const { data, error } = await supabase
+            .schema('store')
             .from("cart")
             .select("*");
-        if ( error ) {
+        if (error) {
             console.error(error);
-        } 
-        else{
+        } else {
             setCartItems(data || []);
         }
     };
+
     useEffect(() => {
         fetchCart();
     }, []);
@@ -26,16 +26,17 @@ function Checkout(){
     const totalPrice = cartItems.reduce(
         (total, item) => total + (item.cost || 0), 0
     );
-            
-    return(
+
+    return (
         <div>
             <div className="Checkout">
                 <nav>
                     <ul>
-                    <li><a href="/index.html">Home</a></li>
-                    <li><a href="/cart.html">Cart</a></li>
-                    <li><a href="/checkout.html">Checkout</a></li>
+                        <li><a href="/index.html">Home</a></li>
+                        <li><a href="/cart.html">Cart</a></li>
+                        <li><a href="/checkout.html">Checkout</a></li>
                     </ul>
+                    <Login />
                 </nav>
             </div>
 
@@ -44,20 +45,24 @@ function Checkout(){
                 <h2>Review order and complete checkout process</h2>
 
                 <div className="checkout">
-                    {cartItems.map((item) => 
+                    {cartItems.map((item) =>
                         <div key={item.id}>
                             <p>{item.item_name}</p>
                             <p>Size: {item.selected_size}</p>
                             <p>${item.cost}</p>
                         </div>
-                    )}                
+                    )}
                 </div>
 
                 <h4>Total: ${totalPrice.toFixed(2)}</h4>
-                <ToCheckout onCheckout={fetchCart}/>
+                <ToCheckout 
+                    onCheckout={fetchCart} 
+                    cartItems={cartItems} 
+                    totalAmount={totalPrice} 
+                />
             </div>
         </div>
     );
 }
 
-export default Checkout
+export default Checkout;
