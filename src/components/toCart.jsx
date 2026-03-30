@@ -1,6 +1,6 @@
 import React from 'react';
 import { supabase } from '../supabaseClient';
-import { toast } from 'react-toastify'; // Import toast
+import { toast } from 'react-toastify'; 
 
 const ToCart = ({ apparelNo, selectedSize }) => {
     const addToCart = async () => {
@@ -22,10 +22,10 @@ const ToCart = ({ apparelNo, selectedSize }) => {
         .insert([
             { 
                 item_id: apparelNo.id, 
-                item_name: apparelNo.itemName,   // Use itemName (from App.jsx)
+                item_name: apparelNo.itemName,
                 cost: apparelNo.cost,
                 selected_size: selectedSize,
-                image_path: apparelNo.imagePath, // Use imagePath (from App.jsx)
+                image_path: apparelNo.imagePath,
                 category: apparelNo.category || "General",
                 brand: apparelNo.brand || "Digital Shop",
                 color: apparelNo.color || "N/A",
@@ -35,7 +35,7 @@ const ToCart = ({ apparelNo, selectedSize }) => {
 
     if (error) {
         toast.error("Cloud Error: " + error.message);
-        console.error("Full Error Object:", error); // Check console for details
+        console.error("Full Error Object:", error);
     } else {
         toast.success(`${apparelNo.itemName} added to cart!`);
     }
