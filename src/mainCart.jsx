@@ -1,8 +1,8 @@
 import React from 'react'
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import { ToastContainer } from 'react-toastify'; 
-import 'react-toastify/dist/ReactToastify.css'; 
+import { ToastContainer } from 'react-toastify'; // Import
+import 'react-toastify/dist/ReactToastify.css'; // Import CSS
 import './index.css'
 import Cart from './Cart.jsx'
 

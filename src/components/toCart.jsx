@@ -1,45 +1,43 @@
 import React from 'react';
 import { supabase } from '../supabaseClient';
-import { toast } from 'react-toastify'; 
+import { toast } from 'react-toastify';
 
 const ToCart = ({ apparelNo, selectedSize }) => {
     const addToCart = async () => {
-    if (!selectedSize) {
-        toast.warn("Please select a size first!");
-        return;
-    }
+        if (!selectedSize) {
+            toast.warn("Please select a size first!");
+            return;
+        }
 
-    const { data: { user } } = await supabase.auth.getUser();
-    
-    if (!user) {
-        toast.error("Please log in to add items to your cart.");
-        return;
-    }
+        const { data: { user } } = await supabase.auth.getUser();
+        
+        // Session ID fallback for guests
+        let sessionId = localStorage.getItem('shop_session_id');
+        if (!sessionId) {
+            sessionId = 'sess_' + Math.random().toString(36).substring(2, 15);
+            localStorage.setItem('shop_session_id', sessionId);
+        }
 
-    const { error } = await supabase
-        .schema('store')
-        .from('cart')
-        .insert([
-            { 
+        const cartIdentifier = user ? user.id : sessionId;
+
+        const { error } = await supabase
+            .schema('store')
+            .from('cart')
+            .insert([{ 
                 item_id: apparelNo.id, 
                 item_name: apparelNo.itemName,
                 cost: apparelNo.cost,
                 selected_size: selectedSize,
                 image_path: apparelNo.imagePath,
-                category: apparelNo.category || "General",
-                brand: apparelNo.brand || "Digital Shop",
-                color: apparelNo.color || "N/A",
-                user_id: user.id
-            }
-        ]);
+                user_id: cartIdentifier 
+            }]);
 
-    if (error) {
-        toast.error("Cloud Error: " + error.message);
-        console.error("Full Error Object:", error);
-    } else {
-        toast.success(`${apparelNo.itemName} added to cart!`);
-    }
-};
+        if (error) {
+            toast.error("Cloud Error: " + error.message);
+        } else {
+            toast.success(`${apparelNo.itemName} added to cart!`);
+        }
+    };
 
     return (
         <div className="SentToCard">

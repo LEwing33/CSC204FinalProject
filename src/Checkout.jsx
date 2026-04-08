@@ -8,15 +8,25 @@ function Checkout() {
     const [cartItems, setCartItems] = useState([]);
 
     const fetchCart = async () => {
+        const { data: { user } } = await supabase.auth.getUser();
+        
+        // Check localStorage for the guest ID if no user is logged in
+        const sessionId = localStorage.getItem('shop_session_id');
+        const identifier = user ? user.id : sessionId;
+
+        if (!identifier) {
+            setCartItems([]);
+            return;
+        }
+
         const { data, error } = await supabase
             .schema('store')
-            .from("cart")
-            .select("*");
-        if (error) {
-            console.error(error);
-        } else {
-            setCartItems(data || []);
-        }
+            .from('cart')
+            .select('*')
+            .eq('user_id', identifier); // Filter by whichever ID we are currently using
+
+        if (error) console.error(error);
+        else setCartItems(data || []);
     };
 
     useEffect(() => {
@@ -40,7 +50,7 @@ function Checkout() {
                 </nav>
             </div>
 
-            <div>
+            <div className="CheckoutReview">
                 <h1>Checkout</h1>
                 <h2>Review order and complete checkout process</h2>
 

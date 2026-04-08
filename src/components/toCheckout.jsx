@@ -1,64 +1,71 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import emailjs from '@emailjs/browser';
 import { supabase } from '../supabaseClient';
 import { toast } from 'react-toastify';
 
 const ToCheckout = ({ onCheckout, cartItems, totalAmount }) => {
-    
+    const [guestEmail, setGuestEmail] = useState("");
+    const [user, setUser] = useState(null);
+
+    useEffect(() => {
+        const checkUser = async () => {
+            const { data } = await supabase.auth.getUser();
+            setUser(data.user);
+        };
+        checkUser();
+    }, []);
+
     const handleSendOrder = async () => {
-        const { data: { user } } = await supabase.auth.getUser();
-        
-        if (!user || cartItems.length === 0) {
-            toast.error("Cart is empty or you aren't logged in!");
+        const finalEmail = user ? user.email : guestEmail;
+
+        if (!finalEmail) {
+            toast.warn("Please enter an email address!");
             return;
         }
 
-        // Format the cart items for the emai
         const orderSummary = cartItems.map(item => 
             `- ${item.item_name} (${item.selected_size}): $${item.cost}`
         ).join('\n');
 
         const templateParams = {
-            user_email: user.email,
+            user_email: finalEmail,
             order_details: orderSummary,
             total_price: `$${totalAmount.toFixed(2)}`,
-            // to_name: "Store Manager" // Or your name
         };
 
         try {
-            // Send the Email
-            await emailjs.send(
-                'service_o13isfb', 
-                'template_qfi9b7t', 
-                templateParams, 
-                '5tnKGgihisxUkvhQA'
-            );
+            await emailjs.send('service_o13isfb', 'template_qfi9b7t', templateParams, '5tnKGgihisxUkvhQA');
 
-            // Clear the cart
-            const { error: deleteError } = await supabase
-                .schema('store')
-                .from('cart')
-                .delete()
-                .eq('user_id', user.id);
+            const sessionId = localStorage.getItem('shop_session_id');
+            const identifier = user ? user.id : sessionId;
 
-            if (deleteError) throw deleteError;
+            await supabase.schema('store').from('cart').delete().eq('user_id', identifier);
 
             toast.success("Order sent successfully!");
-            onCheckout(); // Refresh the UI
-
+            onCheckout(); 
         } catch (err) {
-            console.error("Checkout Error:", err);
             toast.error("Failed to complete checkout.");
         }
     };
 
     return (
-        <button 
-            className="CheckoutButton" 
-            onClick={handleSendOrder}
-        >
-            Complete Purchase & Send Email
-        </button>
+        <div className="checkout-actions">
+            {!user && (
+                <div className="guest-email-section">
+                    <label>Contact Email:</label>
+                    <input 
+                        type="email" 
+                        placeholder="Enter email for order confirmation" 
+                        value={guestEmail}
+                        onChange={(e) => setGuestEmail(e.target.value)}
+                        className="guest-input"
+                    />
+                </div>
+            )}
+            <button className="CheckoutButton" onClick={handleSendOrder}>
+                Complete Purchase
+            </button>
+        </div>
     );
 };
 

@@ -2,7 +2,7 @@ import React from 'react';
 import ToCart from './toCart';
 import RemoveFromCart from './removeFromCart';
 
-const ApparelList = ({ apparelNo, savedSize, dbId, onRemove, isLoggedIn }) => {
+const ApparelList = ({ apparelNo, savedSize, dbId, onRemove }) => {
     const [size, setSize] = React.useState(savedSize || "");
 
     const displayCost = typeof apparelNo.cost === 'number'
@@ -40,9 +40,7 @@ const ApparelList = ({ apparelNo, savedSize, dbId, onRemove, isLoggedIn }) => {
 
             {/* Only show Add to Cart on home page AND when logged in */}
             {!savedSize && (
-                isLoggedIn
-                    ? <ToCart apparelNo={apparelNo} selectedSize={size} />
-                    : <p>Sign in to add to cart</p>
+                    <ToCart apparelNo={apparelNo} selectedSize={size} />
             )}
 
             {savedSize && (

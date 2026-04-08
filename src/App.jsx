@@ -30,22 +30,17 @@ function App() {
 
   return (
     <div className="App">
-      <h1>My Digital Shop</h1>
-      {!user && (
-        <p style={{ color: '#888' }}>Sign in to add items to your cart.</p>
-      )}
-
-      <nav className="nav-bar">
+      <nav>
         <ul>
           <li><a href="/index.html">Home</a></li>
           <li><a href="/cart.html">Cart</a></li>
           <li><a href="/checkout.html">Checkout</a></li>
         </ul>
-        <div className="login">
-          {/* Login lives in the nav so it's always visible */}
-          <Login onAuthChange={setUser} />
-        </div>
+        {/* Login lives in the nav so it's always visible */}
+        <Login onAuthChange={setUser} />
       </nav>
+
+      <h1>My Digital Shop</h1>
 
       {loading ? (
         <p>Loading catalog...</p>
@@ -60,7 +55,7 @@ function App() {
                 imagePath: item.image_path,// correct
                 size_chart: item.size_chart || []
               }}
-              isLoggedIn={!!user}
+              isLoggedIn={true} // Pass login state down so ToCart can gate itself
             />
           ))}
         </div>

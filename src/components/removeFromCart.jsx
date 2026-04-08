@@ -7,7 +7,7 @@ const RemoveFromCart = ({ itemId, onRemove }) => {
             .schema('store')
             .from('cart')
             .delete()
-            .eq('id', itemId); 
+            .eq('id', itemId); // Deletes the row where the DB id matches
 
         if (error) {
             console.error("Error removing item:", error.message);
