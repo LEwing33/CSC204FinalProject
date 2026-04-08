@@ -37,7 +37,7 @@ const Login = ({ onAuthChange }) => {
             return;
         }
 
-        // Convert username to a fake email format
+        // Convert username to a fake email format for Supabase
         const internalEmail = `${username.trim()}@myshop.local`;
 
         if (isSignUp) {
@@ -48,21 +48,32 @@ const Login = ({ onAuthChange }) => {
             if (error) setError(error.message);
             else setMessage('Account created! You can now log in.');
         } else {
-            const { error } = await supabase.auth.signInWithPassword({ 
+            const { error, data } = await supabase.auth.signInWithPassword({ 
                 email: internalEmail, 
                 password: password 
             });
-            if (error) setError(error.message);
+            if (error) {
+                setError(error.message);
+            }else if (data.user) {
+                // SUCCESSFUL LOGIN: Force a hard refresh
+                window.location.reload();
+            }
         }
         setLoading(false);
     };
 
     const handleSignOut = async () => {
-        await supabase.auth.signOut();
+        const { error } = await supabase.auth.signOut();
+        if (!error) {
+        // This simulates the user clicking the refresh button
+            window.location.reload(); 
+        } else {
+            setError(error.message);
+        }
     };
 
     if (user) {
-        // Display just the username
+        // Display just the username part of the internal email
         const displayName = user.email.split('@')[0];
         return (
             <div className="auth-bar">
@@ -96,8 +107,8 @@ const Login = ({ onAuthChange }) => {
                 {isSignUp ? 'Already have a username? Sign In' : 'Need a username? Sign Up'}
             </button>
 
-            {error && <p>{error}</p>}
-            {message && <p>{message}</p>}
+            {error && <p style={{ color: 'red', fontSize: '12px' }}>{error}</p>}
+            {message && <p style={{ color: 'green', fontSize: '12px' }}>{message}</p>}
         </div>
     );
 };
