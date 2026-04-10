@@ -12,13 +12,10 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
 
 // Function to get or create a unique Session ID
 export const getSessionId = () => {
-    let sessionId = localStorage.getItem('shop_session_id');
-    
+    let sessionId = sessionStorage.getItem('shop_session_id');
     if (!sessionId) {
-        // Generate a random string (e.g., 'sess_9f2k1a...')
         sessionId = 'sess_' + Math.random().toString(36).substring(2, 15);
-        localStorage.setItem('shop_session_id', sessionId);
+        sessionStorage.setItem('shop_session_id', sessionId);
     }
-    
     return sessionId;
 };

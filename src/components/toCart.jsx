@@ -12,10 +12,10 @@ const ToCart = ({ apparelNo, selectedSize }) => {
         const { data: { user } } = await supabase.auth.getUser();
         
         // Session ID fallback for guests
-        let sessionId = localStorage.getItem('shop_session_id');
+        let sessionId = sessionStorage.getItem('shop_session_id');
         if (!sessionId) {
             sessionId = 'sess_' + Math.random().toString(36).substring(2, 15);
-            localStorage.setItem('shop_session_id', sessionId);
+            sessionStorage.setItem('shop_session_id', sessionId);
         }
 
         const cartIdentifier = user ? user.id : sessionId;
@@ -29,6 +29,9 @@ const ToCart = ({ apparelNo, selectedSize }) => {
                 cost: apparelNo.cost,
                 selected_size: selectedSize,
                 image_path: apparelNo.imagePath,
+                color: apparelNo.color,
+                brand: apparelNo.brand,
+                category: apparelNo.category,
                 user_id: cartIdentifier 
             }]);
 

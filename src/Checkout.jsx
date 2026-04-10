@@ -10,8 +10,8 @@ function Checkout() {
     const fetchCart = async () => {
         const { data: { user } } = await supabase.auth.getUser();
         
-        // Check localStorage for the guest ID if no user is logged in
-        const sessionId = localStorage.getItem('shop_session_id');
+        // Check sessionStorage for the guest ID if no user is logged in
+        const sessionId = sessionStorage.getItem('shop_session_id');
         const identifier = user ? user.id : sessionId;
 
         if (!identifier) {
