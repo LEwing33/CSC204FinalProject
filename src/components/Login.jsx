@@ -37,7 +37,6 @@ const Login = ({ onAuthChange }) => {
             return;
         }
 
-        // Convert username to a fake email format for Supabase
         const internalEmail = `${username.trim()}@myshop.local`;
 
         if (isSignUp) {
@@ -55,7 +54,6 @@ const Login = ({ onAuthChange }) => {
             if (error) {
                 setError(error.message);
             }else if (data.user) {
-                // SUCCESSFUL LOGIN: Force a hard refresh
                 window.location.reload();
             }
         }
@@ -65,7 +63,6 @@ const Login = ({ onAuthChange }) => {
     const handleSignOut = async () => {
         const { error } = await supabase.auth.signOut();
         if (!error) {
-        // This simulates the user clicking the refresh button
             window.location.reload(); 
         } else {
             setError(error.message);
@@ -73,7 +70,6 @@ const Login = ({ onAuthChange }) => {
     };
 
     if (user) {
-        // Display just the username part of the internal email
         const displayName = user.email.split('@')[0];
         return (
             <div className="auth-bar">

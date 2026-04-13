@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import  {supabase} from './supabaseClient';
 import ApparelList from './components/apparelObject';
 import Login from './components/Login';
+import { Routes, Route, Link } from 'react-router-dom';
 
 function Cart() {
   const [cartItems, setCartItems] = useState([]);
@@ -41,9 +42,9 @@ function Cart() {
     <div className="Cart">
       <nav>
         <ul>
-          <li><a href="/index.html">Home</a></li>
-          <li><a href="/cart.html">Cart</a></li>
-          <li><a href="/checkout.html">Checkout</a></li>
+          <li><Link to="/">Home</Link></li>
+          <li><Link to="/cart">Cart</Link></li>
+          <li><Link to="/checkout">Checkout</Link></li>
         </ul>
         <Login />
       </nav>
@@ -51,18 +52,17 @@ function Cart() {
       <h1>My Cloud Cart</h1>
 
       <div className="inventory-grid">
-        {cartItems.map((item) => (
-          <div key={item.id}>
+        {cartItems.map((item, index) => (
+          <div key={item.id || index}> 
             <ApparelList
               apparelNo={{
-                item_id: item.item_id,
+                // item_id: item.id,
                 itemName: item.item_name,
                 cost: item.cost,
                 imagePath: item.image_path,
                 category: item.category || "N/A",
                 color: item.color || "N/A",
                 brand: item.brand || "N/A",
-                status: item.status || "In Stock",
                 size_chart: []
               }}
               savedSize={item.selected_size}

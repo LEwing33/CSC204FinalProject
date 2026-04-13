@@ -11,7 +11,6 @@ const ToCart = ({ apparelNo, selectedSize }) => {
 
         const { data: { user } } = await supabase.auth.getUser();
         
-        // Session ID fallback for guests
         let sessionId = sessionStorage.getItem('shop_session_id');
         if (!sessionId) {
             sessionId = 'sess_' + Math.random().toString(36).substring(2, 15);
@@ -24,7 +23,6 @@ const ToCart = ({ apparelNo, selectedSize }) => {
             .schema('store')
             .from('cart')
             .insert([{ 
-                item_id: apparelNo.id, 
                 item_name: apparelNo.itemName,
                 cost: apparelNo.cost,
                 selected_size: selectedSize,

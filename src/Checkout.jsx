@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import ToCheckout from "./components/toCheckout.jsx";
 import Login from "./components/Login.jsx";
 import { supabase } from "./supabaseClient";
+import { Routes, Route, Link } from 'react-router-dom';
 
 function Checkout() {
     const [cartItems, setCartItems] = useState([]);
@@ -42,9 +43,9 @@ function Checkout() {
             <div className="Checkout">
                 <nav>
                     <ul>
-                        <li><a href="/index.html">Home</a></li>
-                        <li><a href="/cart.html">Cart</a></li>
-                        <li><a href="/checkout.html">Checkout</a></li>
+                        <li><Link to="/">Home</Link></li>
+                        <li><Link to="/cart">Cart</Link></li>
+                        <li><Link to="/checkout">Checkout</Link></li>
                     </ul>
                     <Login />
                 </nav>

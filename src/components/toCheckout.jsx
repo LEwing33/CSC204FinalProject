@@ -36,7 +36,7 @@ const ToCheckout = ({ onCheckout, cartItems, totalAmount }) => {
         try {
             await emailjs.send('service_o13isfb', 'template_qfi9b7t', templateParams, '5tnKGgihisxUkvhQA');
 
-            const sessionId = localStorage.getItem('shop_session_id');
+            const sessionId = sessionStorage.getItem('shop_session_id');
             const identifier = user ? user.id : sessionId;
 
             await supabase.schema('store').from('cart').delete().eq('user_id', identifier);

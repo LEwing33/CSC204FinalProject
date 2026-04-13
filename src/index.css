@@ -1,68 +1,226 @@
-/* :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
+/* General Project Styles */
+:root {
+  --primary-color: #2563eb;
+  --bg-color: #f8fafc;
+  --card-bg: #ffffff;
+  --text-main: #1e293b;
+  --text-muted: #64748b;
+  --border-radius: 8px;
+  --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
 }
 
 body {
   margin: 0;
+  font-family: 'Inter', -apple-system, sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-main);
+}
+
+/* Navigation Bar */
+nav {
+  background-color: #1e293b;
+  padding: 1rem 2rem;
   display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+  box-shadow: var(--shadow);
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 2rem;
+  margin: 0;
+  padding: 0;
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
+nav a {
+  color: #cbd5e1;
+  text-decoration: none;
   font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  transition: color 0.2s;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
-} */
+nav a:hover {
+  color: white;
+}
+
+/* Login/Auth Bar */
+.auth-bar {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.auth-bar input {
+  padding: 6px 10px;
+  border-radius: 4px;
+  border: 1px solid #475569;
+  background: #334155;
+  color: white;
+}
+
+.auth-bar button {
+  padding: 6px 15px;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.auth-bar .switch-btn {
+  background: transparent;
+  font-size: 0.8rem;
+  color: #94a3b8;
+  text-decoration: underline;
+}
+
+/* Inventory Grid */
+.inventory-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 25px;
+  padding: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Apparel Card */
+.ApparelCard {
+  background: var(--card-bg);
+  padding: 20px;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s;
+}
+
+.ApparelCard:hover {
+  transform: translateY(-5px);
+}
+
+.ApparelCard img {
+  width: 100%;
+  height: 300px; /* Keeps the container size consistent */
+  
+  /* Use 'contain' to see the whole image without cropping */
+  object-fit: contain; 
+  
+  /* Optional: Adds a light background so images with different 
+     aspect ratios don't look 'floating' in empty space */
+  background-color: #f1f5f9; 
+  
+  border-radius: 4px;
+  margin-bottom: 15px;
+}
+
+.ApparelCard h3 {
+  margin: 10px 0;
+  font-size: 1.25rem;
+}
+
+.ApparelCard p {
+  margin: 5px 0;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+.ApparelCard select {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  border-radius: 4px;
+  border: 1px solid #e2e8f0;
+}
+
+/* Buttons for Actions */
+.ApparelCard button {
+  margin-top: auto;
+  padding: 12px;
+  width: 100%;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.RemoveAction button {
+  background-color: #ef4444; /* Red for removal */
+}
+
+/* Checkout Page */
+.checkout {
+  background: white;
+  padding: 20px;
+  border-radius: var(--border-radius);
+  max-width: 600px;
+  margin: 20px auto;
+  box-shadow: var(--shadow);
+}
+
+.checkout div {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #f1f5f9;
+  padding: 10px 0;
+}
+
+h1, h2 {
+  text-align: center;
+  margin-top: 30px;
+}
+
+/* --- Add to Cart Component (toCart.jsx) --- */
+.SentToCard {
+  margin-top: 15px;
+}
+
+.SentToCard button {
+  width: 100%;
+  padding: 12px;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: var(--border-radius);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+.SentToCard button:hover {
+  background-color: #1d4ed8; /* Slightly darker blue */
+}
+
+.SentToCard button:active {
+  transform: scale(0.98); /* Slight "press" effect */
+}
+
+/* --- Checkout Button Component (toCheckout.jsx) --- */
+.CheckoutButton {
+  display: block;
+  width: 100%;
+  max-width: 400px;
+  margin: 30px auto;
+  font-size: 1.1rem;
+  font-weight: 700;
+  /* Overriding the inline styles with higher specificity if needed */
+  background-color: #10b981 !important; /* Emerald Green */
+  transition: background-color 0.2s, box-shadow 0.2s !important;
+}
+
+.CheckoutButton:hover {
+  background-color: #059669 !important;
+  box-shadow: 0 10px 15px -3px rgba(16, 185, 129, 0.2);
+}
+
+/* --- Toastify Customization --- */
+/* This ensures your Toast notifications match your project's border radius */
+.Toastify__toast {
+  border-radius: var(--border-radius) !important;
+  font-family: 'Inter', sans-serif !important;
+}

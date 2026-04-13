@@ -38,7 +38,6 @@ const ApparelList = ({ apparelNo, savedSize, dbId, onRemove }) => {
             <p>Brand: {apparelNo.brand}</p>
             <p>Status: {apparelNo.status}</p>
 
-            {/* Only show Add to Cart on home page AND when logged in */}
             {!savedSize && (
                     <ToCart apparelNo={apparelNo} selectedSize={size} />
             )}

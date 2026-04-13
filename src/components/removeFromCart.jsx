@@ -1,5 +1,6 @@
 import React from 'react';
 import { supabase } from '../supabaseClient';
+import { toast } from 'react-toastify';
 
 const RemoveFromCart = ({ itemId, onRemove }) => {
     const remove = async () => {
@@ -7,12 +8,11 @@ const RemoveFromCart = ({ itemId, onRemove }) => {
             .schema('store')
             .from('cart')
             .delete()
-            .eq('id', itemId); // Deletes the row where the DB id matches
+            .eq('id', itemId);
 
         if (error) {
-            console.error("Error removing item:", error.message);
+            toast.error("Failed to remove item from cart.");
         } else {
-            // Call the refresh function passed from Cart.jsx
             onRemove();
         }
     };
