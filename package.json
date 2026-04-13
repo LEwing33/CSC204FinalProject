@@ -4,6 +4,7 @@
   "description": "Three Pages: Home page: paragraph of what it is apparel",
   "main": "index.js",
   "dependencies": {
+    "@emailjs/browser": "^4.4.1",
     "@supabase/supabase-js": "^2.99.0",
     "acorn": "^8.15.0",
     "acorn-jsx": "^5.3.2",
@@ -91,6 +92,8 @@
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
     "react-refresh": "^0.18.0",
+    "react-router-dom": "^7.14.0",
+    "react-toastify": "^11.0.5",
     "resolve-from": "^4.0.0",
     "rollup": "^4.57.1",
     "scheduler": "^0.27.0",
@@ -128,5 +131,8 @@
   "bugs": {
     "url": "https://github.com/LEwing33/CSC204FinalProject/issues"
   },
-  "homepage": "https://github.com/LEwing33/CSC204FinalProject#readme"
+  "homepage": "https://github.com/LEwing33/CSC204FinalProject#readme",
+  "devDependencies": {
+    "@vitejs/plugin-react": "^5.2.0"
+  }
 }
