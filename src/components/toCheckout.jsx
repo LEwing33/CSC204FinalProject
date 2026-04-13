@@ -52,7 +52,7 @@ const ToCheckout = ({ onCheckout, cartItems, totalAmount }) => {
         <div className="checkout-actions">
             {!user && (
                 <div className="guest-email-section">
-                    <label>Contact Email:</label>
+                    <label>Contact Email: </label>
                     <input 
                         type="email" 
                         placeholder="Enter email for order confirmation" 

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Routes, Route, Link } from 'react-router-dom';
+import './Index.css';
 import ApparelList from './components/apparelObject';
 import Login from './components/Login';
 import Cart from './Cart';
@@ -27,9 +28,8 @@ function Home() {
 
   return (
     <div className="App">
-            <h1>My Digital Shop</h1>
       <Nav />
-      <Login onAuthChange={setUser} />
+      <h1>My Digital Shop</h1>
       {loading ? (
         <p>Loading catalog...</p>
       ) : (
@@ -65,6 +65,7 @@ function Nav() {
         <li><Link to="/cart">Cart</Link></li>
         <li><Link to="/checkout">Checkout</Link></li>
       </ul>
+      <Login />
     </nav>
   );
 }

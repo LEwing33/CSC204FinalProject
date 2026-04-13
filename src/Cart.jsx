@@ -11,7 +11,6 @@ function Cart() {
   const fetchCart = async () => {
     const { data: { user } } = await supabase.auth.getUser();
     
-    // Check sessionStorage for the guest ID if no user is logged in
     const sessionId = sessionStorage.getItem('shop_session_id');
     const identifier = user ? user.id : sessionId;
 
@@ -26,7 +25,7 @@ function Cart() {
         .schema('store')
         .from('cart')
         .select('*')
-        .eq('user_id', identifier); // Filter by whichever ID we are currently using
+        .eq('user_id', identifier);
 
     if (error) console.error(error);
     else setCartItems(data || []);
