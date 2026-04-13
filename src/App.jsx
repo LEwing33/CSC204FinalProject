@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Routes, Route, Link } from 'react-router-dom';
-import './App.css';
 import ApparelList from './components/apparelObject';
 import Login from './components/Login';
 import Cart from './Cart';
@@ -31,7 +30,6 @@ function Home() {
             <h1>My Digital Shop</h1>
       <Nav />
       <Login onAuthChange={setUser} />
-      
       {loading ? (
         <p>Loading catalog...</p>
       ) : (
