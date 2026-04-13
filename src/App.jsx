@@ -28,9 +28,10 @@ function Home() {
 
   return (
     <div className="App">
+            <h1>My Digital Shop</h1>
       <Nav />
       <Login onAuthChange={setUser} />
-      <h1>My Digital Shop</h1>
+      
       {loading ? (
         <p>Loading catalog...</p>
       ) : (

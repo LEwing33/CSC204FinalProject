@@ -16,9 +16,18 @@ body {
   color: var(--text-main);
 }
 
-/* Navigation Bar */
+.App {
+  font-family: 'Arial', sans-serif;
+  color: #333;
+  padding: 1rem;
+  max-width: 1380px;
+  margin-left: 10%;
+  margin-right: 10%;
+}
+
+/* Navigation Bar#1e293b */
 nav {
-  background-color: #1e293b;
+  background-color: #ADD8E6;
   padding: 1rem 2rem;
   display: flex;
   justify-content: space-between;
@@ -36,7 +45,7 @@ nav ul {
 }
 
 nav a {
-  color: #cbd5e1;
+  color: #000000;
   text-decoration: none;
   font-weight: 500;
   transition: color 0.2s;
