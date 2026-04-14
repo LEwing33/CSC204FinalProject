@@ -67,7 +67,7 @@ nav a:hover {
   border-radius: 4px;
   border: 1px solid #475569;
   background: #f1f5f9;
-  color: white;
+  color: black;
 }
 
 .auth-bar button {
@@ -239,4 +239,5 @@ h1, h2 {
   margin: 10px auto;
   border-radius: var(--border-radius);
   border: 1px solid #e2e8f0;
+  color:#475569;
 }
